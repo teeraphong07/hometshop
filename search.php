@@ -28,7 +28,7 @@
                     <li><a href="index.php">หน้าหลัก</a></li>
                     <li><a href="#">เกี่ยวกับ</a></li>
                     <li><a href="#">ติดต่อ</a></li>
-                    <li><a href="search.php">ค้นหา</a></li>
+                    <li><a href="search.php"><span class="glyphicon glyphicon-search"></span>ค้นหา</a></li>
                     <li><a href="newproduct.php">เพิ่มสินค้า</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
@@ -77,42 +77,46 @@
             </div>
         </div>
     </nav>
-        <div class="container">
-            <div class="row">
-                <h2>Search Product</h2>
-                    <div class="col-md-12">
-                        <form action="" method="post">
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                <input type="text" class="form-control" name="txtSearch" placeholder="กรอกข้อมูล"></div>
-                                <div class="col-md-2">
-                            <button type="summit" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
-                </form>  
-            </div>
-        </div>
-    <?php
-        if(isset($_POST['submit'])){
-            $search = $_POST['txtSearch'];
-            $sql ="SELECT * FROM product WHERE name LIKE '%$search%' ";
-    ?>
+    <div class="container">
         <div class="row">
+            <h2>Search Product</h2>
             <div class="col-md-12">
-            <?php  
+            <form action="" method="post">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" name="txtSearch" placeholder="กรอกข้อมูล">
+                    </div>
+                    <div class="col-md-2">
+                        <button name="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-search"></span> Search 
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        <?php
+            if(isset($_POST['submit'])){
+                $search = $_POST['txtSearch'];
+                $sql = "SELECT * FROM product WHERE name LIKE '%$search%' or price LIKE '%$search%'";
+        ?><br>
+            <div class="row"><h3>ผลการค้นหา : <?php echo $_POST['txtSearch'] ?></h2>
+                <div class="col-md-12"></br>
+                <?php
                 $result = $conn->query($sql);
                 if(!$result){
-                    echo "Error during data retrieval";
+                    echo "Error during data retrieval" . $conn->error;
                 }
                 else{
+                    //ดึงข้อมูล
                     while($prd=$result->fetch_object()){
                 ?>
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <div class="thumbnail">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                    <div class="thumbnail">
                     <a href="productdetail.php?pid=<?php echo $prd->id; ?>&category=<?php echo $id;?>">
                         <img src="img/<?php echo $prd->picture;?>" alt="">
                     </a>
-                    <div class="caption">
+                        <div class="caption">
                         <h3><?php echo $prd->name?></h3>
                             <p><?php echo $prd->description?></p>
                                 <p><strong>Price: <?php echo $prd->price?></strong></p>
@@ -127,19 +131,19 @@
                                 class="btn btn-danger lnkdelete" >
                                     <i class="glyphicon glyphicon-trash"></i>Delete                     
                                 </a>
-                                </p>
+                            </p>
+                        </div>
                     </div>
                 </div>
-           </div>
-            <?php
-                }
-            }
-           ?>
+                    <?php
+                            }
+                        }
+                ?>
+                </div>
             </div>
-        </div>
-    <?php
-        }
-    ?>
+        <?php
+            }
+        ?>
     </div>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

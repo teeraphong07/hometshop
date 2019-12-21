@@ -28,7 +28,7 @@
                     <li><a href="index.php">หน้าหลัก</a></li>
                     <li><a href="#">เกี่ยวกับ</a></li>
                     <li><a href="#">ติดต่อ</a></li>
-                    <li><a href="search.php">ค้นหา</a></li>
+                    <li><a href="search.php"><span class="glyphicon glyphicon-search"></span>ค้นหา</a></li>
                     <li><a href="newproduct.php">เพิ่มสินค้า</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
@@ -118,11 +118,11 @@
                                 </p>
                     </div>
                 </div>
-           </div>
-            <?php
+            </div>
+                <?php
                 }
-            }
-           ?>
+                }
+            ?>
         </div>
     </div>
     <script src="js/jquery-3.4.1.min.js"></script>
